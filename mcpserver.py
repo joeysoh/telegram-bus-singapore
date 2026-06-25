@@ -1,15 +1,34 @@
 from mcp.server.fastmcp import FastMCP
 import bus
-# Create the server
-mcp = FastMCP("weather-server")
+import json
+import common
+mcp = FastMCP("bus-tools-server")
 
+# @mcp.tool()
+# def get_bus_stop_details(bus_stop_code: int) -> dict:
+#     """Get the bus arrival time for the provided bus stop code and bus service number.
+#     Args:
+#     BusStopCode: unique 5-digit identifier for this bus stop. Example: 01012
+#     Returns a json"""
+
+#     b = common.sanitize_number(bus_stop_code)
+#     with open('LTABusStop.geojson', 'r') as file:
+#         data = json.load(file)
+#         matching_feature = next(
+#             (feature for feature in data['features'] if feature['properties'].get('BUS_STOP_NUM') == b), 
+#             None  # Default value if no match is found
+#         )
+#         if matching_feature:
+#             return(json.dumps(matching_feature, indent=4))
+#         else:
+#             return(f"Bus stop {bus_stop_code} not found.")    
 
 @mcp.tool()
-def get_busarrival(BusStopCode: int, SeriviceNo: int = None) -> dict:
+def get_bus_arrival(bus_stop_code: int, serivice_no: int = None) -> dict:
     """Get the bus arrival time for the provided bus stop code and bus service number.
     Args:
-    BusStopCode: unique 5-digit identifier for this bus stop. Example: 01012
-    ServiceNo: bus service number. Example: 196
+    bus_stop_code: unique 5-digit identifier for this bus stop. Example: 01012
+    serivice_no: bus service number. Example: 196
 
     Returns a json formatted as follows:
         ServiceNo: Bus service number 15
@@ -28,13 +47,13 @@ def get_busarrival(BusStopCode: int, SeriviceNo: int = None) -> dict:
         Feature: bus features. WAB (is wheel-chair accessible). Example: WAB
         Type: Vehicle type. SD (Single Deck), DD (Double Deck), BD (Bendy). Example: SD
     """    
-    return bus.getBusArrival(BusStopCode, SeriviceNo)
+    return bus.get_bus_arrival(bus_stop_code, serivice_no)
 
 @mcp.tool()
-def get_busstop(BusStopCode: int) -> dict:
+def get_bus_stop(bus_stop_code: int) -> dict:
     """Get the bus stop information for provided code.
     Args:
-    BusStopCode: unique 5-digit identifier for this bus stop. Example: 01012
+    bus_stop_code: unique 5-digit identifier for this bus stop. Example: 01012
 
     Returns a json formatted as follows:
         BusStopCode: The unique 5-digit identifier for this bus stop. Example: 01012        
@@ -43,8 +62,7 @@ def get_busstop(BusStopCode: int) -> dict:
         Latitude: Latitude Location coordinates for this bus stop. Example: 1.29685
         Longitude: Longitude Location coordinates for this bus stop. Example: 103.853
     """
-    # In a real server, you'd call a weather API here
-    return bus.getBusStop(BusStopCode)
+    return bus.get_bus_stop(bus_stop_code)
 
 
 @mcp.tool()
