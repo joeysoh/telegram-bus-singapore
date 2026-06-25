@@ -25,9 +25,15 @@ logger.setLevel(logging.DEBUG)
 
  
 # GROQ_MODEL = "qwen/qwen3-32b" 
-GROQ_MODEL = "qwen/qwen3.6-27b"
+# GROQ_MODEL = "qwen/qwen3.6-27b"
 # GROQ_MODEL = "llama-3.3-70b-versatile"
 # GROQ_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
+
+# GROQ_MODEL = "openai/gpt-oss-120b"     # flagship, reasoning + built-in tools, replaces llama-3.3-70b
+# GROQ_MODEL = "openai/gpt-oss-20b"      # smaller/faster, replaces llama-3.1-8b-instant
+# GROQ_MODEL = "moonshotai/kimi-k2-instruct-0905"  # strong tool-calling / structured output support
+
+GROQ_MODEL = "openai/gpt-oss-120b"
 
 def extractTag(text,tag):    
     pattern = rf'<{tag}>((?:(?!<{tag}>).)*?)</{tag}>'#'<answer>1<answer>2</answer>' as 2
@@ -63,7 +69,7 @@ async def llm_response_groq(
             tools=groq_tools,
             tool_choice="auto",
             max_completion_tokens=4096,
-            reasoning_effort= 'none'
+            # reasoning_effort= 'none'
         )
 
         message = response.choices[0].message

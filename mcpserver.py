@@ -25,7 +25,7 @@ mcp = FastMCP("bus-tools-server")
 
 @mcp.tool()
 def get_bus_arrival(bus_stop_code: int, serivice_no: int = None) -> dict:
-    """Get the bus arrival time for the provided bus stop code and bus service number.
+    """Get the bus arrival time for the provided bus stop code and bus service number. If only bus stop code is provided, retrieves all buses for this bus stop.
     Args:
     bus_stop_code: unique 5-digit identifier for this bus stop. Example: 01012
     serivice_no: bus service number. Example: 196
