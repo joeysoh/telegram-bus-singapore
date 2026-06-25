@@ -1,0 +1,28 @@
+# Python bytecode and ide folders
+*.py[codz]
+__pycache__/
+*.pyc
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.vscode/
+ref/
+
+# Environments
+.venv/
+
+# Logs
+*.log*
+
+# profiling
+*.prof
+*.db
+
+# docs
+*.pdf
+
+#env
+*.env
+
+output/
+output*.jpg
